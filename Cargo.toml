@@ -1,6 +1,38 @@
 [package]
-name = "h723rust"
+authors = ["sata"]
+edition = "2018"
+readme = "README.md"
+name = "rt-h723"
 version = "0.1.0"
-edition = "2024"
 
 [dependencies]
+cortex-m = "0.7"
+cortex-m-rt = "0.7"
+embedded-hal = "0.2"
+panic-halt = "0.2"
+stm32h7xx-hal = { version = "0.16.0", features = ["stm32h735", "rt"] }
+fugit = "0.3.7"
+
+# Uncomment for the panic example.
+# panic-itm = "0.4.1"
+
+# Uncomment for the allocator example.
+# embedded-alloc = "0.6.0"
+
+# Uncomment for the device example.
+# Update `memory.x`, set target to `thumbv7em-none-eabihf` in `.cargo/config`,
+# and then use `cargo build --example device` to build it.
+# [dependencies.stm32f3]
+# features = ["stm32f303", "rt"]
+# version = "0.7.1"
+
+# this lets you use `cargo fix`!
+[[bin]]
+name = "rt-h723"
+test = false
+bench = false
+
+[profile.release]
+codegen-units = 1 # better optimizations
+debug = true # symbols are nice and they don't increase the size on Flash
+lto = true # better optimizations
